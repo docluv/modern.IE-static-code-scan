@@ -19,171 +19,201 @@
 -->
 <html>
 <head>
-	<title>Modern.ie Local Scan</title>
-	<style>
-		html, body {
-			height: 100%;
-			margin: 0;
-		}
-		body {
-			font-family: Verdana, Arial, sans-serif;
-			color: #114477;
-			padding: 1em;
-			background: rgb(222,239,255); /* Old browsers */
-			background: -webkit-linear-gradient(top, rgba(222,239,255,1) 0%,rgba(152,190,222,1) 100%); /* Chrome10+,Safari5.1+ */
-			background: linear-gradient(to bottom, rgba(222,239,255,1) 0%,rgba(152,190,222,1) 100%); /* W3C */
-		}
-		p {
-			max-width: 50em;
-			margin: 0.5em 0;
-		}
-		pre {
-			color: #006611;
-			background: rgb(192,239,192); /* Old browsers */
-			background: -webkit-linear-gradient(top, rgba(192,239,192,1) 0%,rgba(171,199,171,1) 100%); /* Chrome10+,Safari5.1+ */
-			background: linear-gradient(to bottom, rgba(192,239,192,1) 0%,rgba(171,199,171,1) 100%); /* W3C */
-		}
-		label {
-			display: block;
-			color: #225599;
-			margin: 0.25em 0;
-		}
-		label span {
-			display: inline-block;
-			width: 7em;
-		}
-		input[type=submit], button {
-			font-size: 125%;
-			color: #dfefff;
-			border: none;
-			padding: 4px 32px;
-			margin-bottom: 1em;
-			background: #225599; /* Old browsers */
-			background: -webkit-linear-gradient(top, #7db9e8 0%,#207cca 24%,#1e5799 100%); /* Chrome10+,Safari5.1+ */
-			background: linear-gradient(to bottom, #7db9e8 0%,#207cca 24%,#1e5799 100%); /* W3C */
-		}
-	</style>
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script>
-		$(function () {
-			$("#step2").hide();
+    <title>Modern.ie Local Scan</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
 
-			$("#scanform").on("submit", function (event) {
-				var url = $("#url").val(),
+        body {
+            color: #fff;
+            padding: 1em;
+            background-color: #1C2420;
+            background-image: url(data:image/jpg;base64,/9j/4AAQSkZJRgABAQEAkACQAAD/4QBoRXhpZgAATU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAAExAAIAAAASAAAATgAAAAAAAACQAAAAAQAAAJAAAAABUGFpbnQuTkVUIHYzLjUuMTEA/9sAQwAcExUYFREcGBYYHx0cISlFLSkmJilUPEAyRWRYaWdiWGBfbnyehm51lndfYIq7i5ajqbGzsWuEwtDBrM6errGq/9sAQwEdHx8pJClRLS1RqnJgcqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq/8AAEQgCJALQAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8AwWB3YFN70/ktkeopp+8TnvQAlHNIPzzS46c4oATJoJI/Gjmg0AJRRRQAA46UUUUAFJRS0AJRSsBng5FJQAtJRRQAtJRS0AFFFFABRmiigApKWkoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiloASiiigAooooAKKKWgAooooASiiigAooooAKKKKAClpKKACiiigAooooAKKKKAClzSUUAFFFFABRRRQAtJRRQAoo6mij0x1oAG60lLS5+UjAye9ACUUUUAJRRS0AFPXFMpwPSgAP0ooooAKWMfMMnnIpDTkGJB696ABWxxjn39qaFJUt2Bp3R6Fb5Cnqc0AM55/wpQSOlKR1weM96bkAYoACDgUHI49RSls4z0pp60ABpKd1Ge9JQAUUUUAJRRRQAUUUUAFFFFABS0lFAC0UlFABRRRQAUUUUAFFFFABRRRQAtFJS0AJRS0UAJRRRQAUUUUAFFFFABRRRQAtJSiigBKKKKACiiigAooooAKKWkoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigApccUUUAFJS0lABS0lFADhyaQ9aMmjJznvQAUpGKSjPFABRRQKACn44plP7CgBCKQAd81ICAOetIevUUAHlk9OaI+ZM1LCyq2SfbpSgLvyvegCAkbqcUIRjwMGgYwA3b2/rUgxvKp+dAEXBTJHOeoNMPsamODGRwBn1qNULnAyaAGdqD1p+3rg8DmmkUAJRQaKACiig0AFJRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRS0lABRS0YoAKKKKACg0lFAC0UUUAJRRRQAUUUUAFFFFABRRRQAtFAooAKSlPakoAKWikoAWkoooAWkoooAWkoooAKKKKACiiigApaSigAooooAKKKKACiiigAooooAKKKKACiiigAooooAWgmikoAKKKKAFopKKACilooAKcoU9Wx+FNpaAE70UvrxSUAFO7UnFKSMCgBygE/McCghQeDn8KaTSg0AK3IqQsP3YBI6U0NtUkHBoI+ZMc8/4UABBLc0PlOn86VWLPhiadMo3Djk+9AEPPl555NEchjbIoZiVGSTyabQAue9Bxt96VwFA2nOaaTQAhopWAwMfjSUAFBoooASiiigAooooAKKKKAClxSUuaAEooooAKKKKACiiloAKDRQaAEpaSloAKKSloAWkoooAKSiigAooooAWkoooAKKKKACiiigB+R7U09aSigAooooAKKKKAF7UlFKBk0AJRSkYpKACiiigAoopaAEooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAWiiigAooozQAopWOewHHam9qUjAoASiiloASlpVXOTkD6mjnGO1AAOTSjjnHFIvWnEgqAM0AOxlCfSkPBT6/wCFOIIj45BqSOMEITyaAIMjI9qkyGyDUaxl24xx71Js5JJoAidSAO4plWF+7+NNYI3HQ0ARHvj1oPWnGNu3NMNABSikooADRRiigBKKKKACiiigAooooAKKKKACiiloASiiigAooooAKKKKAFozzSUtAAaKKSgBaSlpKACilpKACiilzQAlFFFABRRRQAUtJRQAUtJS0AFJS0ZoASilpKAClBxSUUAKTSUUUAFFFFABS0lFAC0lFLQAlFFFABRRRQAUUUtACUUUUAFFFFABRRRQAUoOKSigBaSiigBaKSigApaKKAA0lLRQAU7+Gm0tACUUtGfagBKeo45ptP6YoABlWyM0vfpjFIWJ69qXqaAJF5AUHHNKH8soD0NIwKxggYPrUfJKE9M/1oAjzhgR1FSlzmkgUM5Bx+Ip6riZty8HpxQAyRvkUdzzURp8py36UygB6Pt60j4LZpvanKNzgdqAE2nk44FGOOKUsQcjgHtSZ544oASlCk9BSU9H2jFADSjAZI4ptWRMGX3FV2O5iaAEooooAKKKKACiiigAooooAWikooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigBaSiigBaOMe9JRQAUUUUAFFFFABRRRQAUUUUALSUUUAFFFFABS0lLQAUlLSUALSUUUALRSUUAFFFFABRRRQAUUtJQAUUUUALSUUUALRSUtAB2pR+YpKWgAAz6Uh60UUAFP9KYPepQBxz+dACAc05yF+6c+9NIIIzzUiIFXdJ+VADodzfe+76mpfKQKpGOP71VzcHoowKQlpSo5PPrQA0HbIGxjHXFT4zI3UjHeqxPOKnDZT04xQBC5yeR1NNx8ufenydvWo6AFGO9KGI47UgHFKc+hoAaetBoNFADkG44p8kRAzximI2xwalknDDAHWgCDtSGlNJQAUUUUAFFLSUAFFFFAC0lFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUALRSUUAFFFFAC0UUCgAopSKSgApT0pKKACiiigA7U7PSmVPEo++3QCgB+0Iodsbj0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KiHNSEe/WgBjEnluTTacabmgBKUYyM9KTtT4yuct2oAZSU4gHJHFNoAKKKKAEpQcHIpKKAJPM3Ltb160jY2Lg5PNMooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKWiigAooooASiiigAooooAKKKKACiiigAooooAKKKKAClpKWgBKXFJRQAUUUUAFFFFABRS0lABS0UUAFGKKKACikpaACiig0AFPVSxNMqZWVQCDz3FAEZGODSjkGlch8noaRRzxQA9m+QcDg0ife9OaVlwAeoPvQflAwOhoAAuTxRIMDFKhVcYPOeafJhgTjmgCuDwRS7ge3NKfvcLj2pmPrQApFJxS4PoaSgBTwo9TTfelJpKACkpTSUAFFFOVyoxxQAmKMH0NPMhx2zSeY3tQA3B9KSnb29aQknrQAlFFLQAlFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABS0lLQAlFFLQAlLSUtABRRRQAlFFFAC0lFFABRRRQAoopKKAClpKKAFopKKAFopKKACiiigBaKKSgBaBSUUAL3pT146UlBoAKKB1pWOaAEooooAKKKMUAFO6j3pVUY5zTwvUcZ96AE5IJPQ96VSoBDD9aUkHjrzRgMQw4oAiAJbip5B8qbepFRhdu0+vpUsp27SB0GaAK+c0hoHNGeaAHoygcjntTWo60UANoHWlzSUABoNFB60AJRRRQAUUUUAFFFFABS54xSUtACUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUtJRQAvGKKSigApRSUooAO9FBpKAFopKWgBKKWkoAKKKKACiiigAoopaACkopaAEopaSgAopaKAEopaKACikpaAEopaSgBRwaCc0AZpKAFooooAKKKKAFx70YHrR2pKAHEkDFG4nqenFIBkgevFOCcsO4oAX/lmTjv1qSIkjsec0w5wAe1SRZUdOtADFfDAYzinEkxnOMYqN2AI29e9OJ/d0ARt1zxz6UmaSigBaM0D0xkmkxQAtJRSjFACUlOOKbQAUUpGKSgAopQMg+1JQAUUUUAFFFFABRS0lABRRRQAUUUUAFFFFABRRRQAUUUtACUUUUAFFFFABRRS0AJRRRQAUUUUAFFFFABRRRQAUUUUAFFLRQAlFLRigBKKWigAooooAM0GkooAKWjFBoAKSiloASiiigAopaSgBaKKKAEpc0UUAFFL2pKACiiigApKKKAFoopKACiiigBc0UdqKACiiigApaACTgUrKydR1oAbRRS5oAAcEEdakjJ3EkHP0qPH+c0vVc88UAT7c/wnH06UgDAd/wAqYFJjxkeo5pik8jmgAcAGnjlcD0qNvvH61JuCHGcjFAEVKvWgKW6fWkoAeF/OhiB/+ukU+maCQe1ADaUDjPpSZ9qcCaAG0UUlACjFBpKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKWkooAKKWigBKKKKACiiigAopRS8bTQA2ilFGaADGKSlp24e9ADaM96XcPSjIOaAEoozzmlJFACUYpV6Gl3D0oAbjr7UlO3D3oLD0oAbRTt3165pM/NmgBKKdu5pd3FADaKCcmkoAWkoooAXFFANFABRRRQAUUUUAFFFFACUUoGaKAEpaKKAEopTRQAUUE8UUAFLn2pB9aUjFACUtIKXNACcUoHvSUUALjjNJRQAT0oAcvQ/SlP971FCqdhbFKR8gNADX+8SKCScZ5qQjeWHAOc1GB1B60ALG22QHtSMOn0pyITg47Uuwlc4JwO9AEeaSlxx70UAJSikpcUAJRSkYpKAEoopaAEopaSgAooooAKKKKACilpKAFpKWkoAKKKKACiiigAooooAKKKKACiiigAooooAKKKWgBKWkooAKWkooAKKKKAClpKWgAx19qXb9OaQnNKGNABt+lJjnHel3HFJk5zQAu05xSFcUbjRkmgBdvFJtOcUbjSg4OTQAbT7UbTntRuNBY0AJt4zkUYo3GigAxRijNGaADFLt9xSZo3GgANJRRQAUUUUAFFFFABRRRQAUtJS0AFGKSlzQAUUUUAJS0Ud6ACiiigAooooAKKKKAClGMdwaTtS0AG09uaTGTgUUdOlAAQR1BFKv1IHekJJ6kmlBA680ATROOd33aaxJZiv3RTGYt16DtSCgCSUc/jimqQPvDJHSpZuDn0Oag7UAOWQhs5JqaGRACD3HSq9O3cUAK2DkqKbjg0uQQeg9qCcH5emKAG0UpPzZpDQAmaKKKACkpaKAEooooAKKKKAFIpKWkoAKKKKAFopKWgBKWkooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKWkooAXFHFJRQAtFJS0ALxRxSUUAKMZ9qXA46fnTKKAH4H+TSYH+TTaKAHYGPw9aTgUlFAC96OKSigB2BmjC02igAooooAKKKKACiiigAooooAKWkooAKKKKACiiigApaB15GRS47igBMUYpTzzQpwf/rUAJiil4OcmnAAr2oAbRinsAPY008cZFACY4pKWkHWgAop7JhAe2fWmUAAHNLj0oA4peNme9ADacvWm0/G1iMg8daAJGIx3OaiGP8AJqYHMZ4qN0K844NACHb7038KcSaTnFAAD7UEGjqDmkYYP4ZoAD+FLkUlIaADNGaKKADNGc0lFABRRRQAUUUUAFFFFABRRS0AJRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRS0lABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFLSUUAO7UlFGaAA8HrQPalXBPPAoJG75RgUAHOKUDOfakoFABj86TFLzSc0AL2pMUvpQPfNAAaXjb70FjjH45obp1oASnAEtjvTKeqkgsTgUATZHln602TOxc0hHB70kjExqMYoAaetNzQKQ0ALyVzxxQTnHsMUD37UowevSgAkXa2PbNNp7HcCT1AxTKACkpaSgAoopaAEooooAKKKKACiiigApaSloASiiigAooooAKKKKACiiigAooooAKKWigBKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACilpKACiiigAooooAUDNJRRQAUUtFABRSUtABR3oooADRRSUAOpeMU3NFAAKDS5pKAHjGPc+1JupAcD3oOc89TzQAuQc0mfrQKP5igAApwORz6U3jBpVoAe1Ix6c9OKUHBBxmhssenT0oAT8c0hA70o46UjkM2cY+lADSc9qVVB4yAfek20lAEkwwRznj0pjLg4pdx6HkYxzQ7bmJxjNADTRQetFABSUtFACUUUueKAEooooAKKKfs+XPegBo9e1FOQcc9DSH71ACGiikoAKKWkoAKKKKACiiloASiiigApaSigAooooAKKKKACiiloASiiigAooooAKKWkoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigBR1oNFJQAUUUtACUUUUAFFFFABRRRQAUUUUAFFFFABS0AZoIwcUAFJS0Y460AJRRS4oADjtRS456ijFACUU5V54xSH0HSgAANDEk560AUY4PtQAKO/H505j8nbrTMUpFACD0p4GM889qaOtW4VATI6nrQBXLD9acXBPy8Z71FU+FWMcZP0oAYG4wRTDz6VYRkfjaM4qOVApGKAIiSaSlPU0lAC96Mc9aCKDQAhpKKKAFoopKACiiigAooooAKXJxikooAUHFJRRQAUUtJQAtJRRQAUUUUAFLRRQAlFFLQAlFFFABS0lFABRRRQAtFJS0AJRRRQAtJRRQAUtJRQAUUUUAFFLSUAFFLSUAFFFFABRRRQAUUUUAFFFFABRS0lABRRRQAUUUUAFFFFABRRRQAUUUUAFKDgEYHNJRQAUoFJS0AKrlewI9xSs2eMAY9KZRQAtFFKTxgdKAEoFFJQAtLnFJSmgAz1HHNIetFFACj1pB+lGKKAHEjgbRn60ZBGDSCn7MrnFADQf4eMGnIzI3ynNNVSc47UuACaABQcgAc1JNncAPSliX5yewFOM3X5ehx1oAbEjfebgUyV8vwcjtxTmdm46fSo2GfYUAJtJ9PzpDwaXjPB4ptAC96DR6e9KRQA2ilNJQAoFJQD70ZoAKKSlFABSUppKAClpKcfpQA2loooASlopKACiiigAooooAKKKKACiiigAooooAKKWkoAKKWkoAKKKKACiiloASiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiloxQAlFLtoxQAlFOwMdTn6UbfegBtLnil2UmKACijFBoABR2opcGgBM8YooxSspXrQAnajjvR09aKACnbiBjrSAdKULnn1oAVGAkB7VKxj25wA3Tg9KhHU0DofpQBaRdox3pjqqLwTmocZ5pyigBzgBzUbU9uOeCfrTc+vSgBmKMCiigBc80hH0oPT60Y4oASig0lABS0UUAJS0UUAFJS0lABS5ooJyaAEooooAWigUUAJRRRQAUUUUAFFLSUAFFFFABRRRQAUUUUALSUtJQAUtJRQAUUUUAFLSUUALSUUUAFFFFAC0lFFAC0lLRQAlFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAtFJRQAUtJRQAUuP0oooAM0opKKAHEelJQp5ooAUN60maKQ8UALSYopc0AHalBx0zn60lP2EqCMHNADQ2184HFSE+ccdKjdShwadD9+gBjKQaAAe+Ke4JcgU7yWoAhqVFLJ2xQsJbqcURozAjdgUANIoU9RU3kkLweenSodpVuaAFz+VC8n1ptSBR5ZOPmFAClcRkHGQajOKkb5YiD1J55qLNAC4GKbTg2Ae5IpooAP6UUHuaSgAoxRSk8UAJ2opQOCaSgAoozRQAUlFFAC0lFFABRRS0AFJRRQAUUUUAFFFFABRRRQAUUUUAFFFLQAlFFFAC0lFFABRS0lABRRS0AJRS0lAC0lFLQAlFFFAC0lFFAC0UlFAC0lLSUAFFFFABRRRQAUUUtACUUUUAFFFLQAYpKWigBKKKXNACUtGaM0AFLnjpSUUAFBHekp38P0oASjHGaKKAClDYPNJRQAvGaKSgdaAFpKUnJzQBQApBABPAPSpIRlwc9KiOT15p8bhM5ByaAFnOZPpSQ/fpjHJJ9aWI4egB5k2OcUCViep/KmP944qWHaASetADixOAae5CjAHWmJIDIPTNOc/vl9MelADQjbsiiVe/c0TMwYYyB1p0uCgHvQBWx8wHrUrlllOM4qP/aA6U9pMqRgAmgBshJc5P5UzGakjK9W6084xyKAIce/FITQRSYoAKKAKD1oASlpKWgB6EbfekYjtj8qZRQAUtJS0AJRRRQAUUUtACUUtJQAUUUUAFFFFABRRRQAUUUUAFLSUtACUUUtABSUUtABQR3pKWgApKcvekwaACikooAKWkooAKKKKACiiigBaSlpKACiiloAKSlpKACiiigAooooAKWkooAKKKKACiiigAooooAWiiigApKKKACiiigApy8H68U2lFAAeDiilb7xpKACiiigAooooAKKKKAHCgg9cHFNqaSUGPaAeaAIiKE++KKVPvigBG+8aQUrY3ccijtQAqHDA+9WJVwd+cEcdarZxVhJA67XPPSgBTNG3VentTWkV0Iwc04Qqo3Enio5Nmfk5455oAYThiO1HGc4NGMNThjPOPwoATjH0pMDrk0Hj8aOuenPtQAnOaQ0ZOaKAEoopSaAG0UtFACUtFFABRRRQAUlLSUAFLSUUALSUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAoOKCaSigAooooAKKKKACilpKAFopKKAF7UlFFAC0UUUAJRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUtACUtJRQAtFJS0AJS/wBaKMmgBWzgZ+lJRknqaKACiiigAooooAKKKKACgmiigBQCxwKdtxz+lMzjpQST1JoAXGfakooFADsZHFBHrTc0poAKO9LQBzQArDmlzhO2aaxyaVRQAvJzn60gyppR1xmkOc0AI3U46ZpvelOaM0AJRRmigAopKKAFzRRSUAKKD14pKKAFpKWkoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKWkooAKKKKACiiigBaKSloAKSlooAKKSlxQAlLQRikoAKKKKAClpKKACiiigAooooAWkpaSgBaSlooAKKKSgBaSiigBaKSloAKKKSgApaSloASlpKKAFooooAKKKKACiiigAooooAKKKD14oAKKKXFACUCl/CjigBKlhVSwDd+lR05O5HUDIoAc67CR2NNAyxz1odtxyc0qHnnn60ANI5GKVOvWlP36AMfWgBcenJprnmn9Bxj86YzZ9KAG9sUmKUGgE5zQAlFFFACUtJRQAUUUUAFFFFABRRRQAUUUUAFFFFABRS0UAJRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABS0UlABRRS0AJSk0lFABRRS0AJS0UlABRRRQAUUUUAFFFFAC0lFFABS0lFABRRRQAUUtFACUUUUAFFFFAC0lFFAC0UlLQAUUUUAFFFFABRRRQAUUUUAHailpKAFpc02loAU/TrQBk0oBfp2pM4NAAeDg0HjOOlJSUASqFZW45Az1pmOaFzzj0ofluOlAA5O7mhM9aH+9Rngdcd6AFJz2ptJSj36UALk5ptKSc5pKAEopaSgBaKKKAEopaSgAooooAKKKKACilGMUUAJRRRQAUUUoFACUUp60lABRSmigBKKKKACiiigApaSigAooooAKWkooAWkoooAKKWkoAKKKKAFpKXNFACUUUUALSUUUAFFFLQAlFFLQAlFFFABRRRQAtJS0lABRS0lABRRRQAtJS0lABS0UlAC0lLSUAFLRRQAUUUUAAGTgVK0WEz3pinHTrVlDuTmgCpiipZVCtUVABRRR3oAKKUrg9RSUAFLSUUAKRg0ZpKKAHBio4OM0lJRQAtHU0naigCaMIQeOcdzSeWQrEjBFRGnbmxjPXigB04wR7iox0NFFABSnpjtmiigBKKKKAEooooAKKKKAFpKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigApaKKAEooooAKWiigBKKKKACiiigAooooAKKKKACiiigAooooAKKKKAFooooAKSiigAooooAWiiigApQzAcE0UUADEnqaTtRRQAUUUUAFFFFABQKKKACjtRRQAUCiigApRRRQADoaVRk0UUAf/Z);
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            -webkit-background-size: cover;
+            -ms-content-zooming: none;
+            background-size: cover;
+            letter-spacing: 0.02em;
+            font-size: 16px;
+            font-family: 'Segoe UI', 'Segoe WP', 'Open Sans', 'Lucida Grande', sans-serif;
+        }
+
+        p {
+            max-width: 50em;
+            margin: 0.5em 0;
+        }
+
+        pre {
+            color: #000;
+            background: #808080;
+        }
+
+        label {
+            display: block;
+            color: #fff;
+            margin: 0.25em 0;
+        }
+
+            label span {
+                display: inline-block;
+                width: 7em;
+            }
+
+        input[type=submit], button {
+            font-size: 125%;
+            color: #111;
+            border: none;
+            padding: 4px 32px;
+            margin-bottom: 1em;
+            background: #808080; /* Old browsers */
+        }
+
+        #step2 {
+            disply: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Modern.ie Local Scan</h1>
+
+    <div id="step1">
+        <h2>Scan a page</h2>
+
+        <p>Enter the URL of the page to be scanned. If the page requires authentication for access, enter the username and password; otherwise leave those fields blank. (HTTP Basic and Digest authentication methods are supported.)</p>
+
+        <form id="scanform" action="">
+            <label>
+                <span>URL to scan:</span>
+                <input type="text" name="url" id="url" size="70">
+            </label>
+            <label>
+                <span>Username:</span>
+                <input type="text" name="user" id="user" size="20">
+            </label>
+            <label>
+                <span>Password:</span>
+                <input type="text" name="password" id="password" size="20">
+            </label>
+            <input type="submit" name="scan" id="scan" value="Scan">
+            <p id="step1status"></p>
+        </form>
+
+    </div>
+
+    <div id="step2">
+        <h2>Generate report</h2>
+
+        <p>
+            The scan is complete and the report is ready to be generated.
+            Press the button below to submit the scan data to the Modern.ie site and create the report.
+        </p>
+
+        <form id="reportform" action="http://www.modern.ie/report/local" method="post">
+            <input type="submit" id="report" value="Create Report">
+            <input type="hidden" name="local_test_results" id="json" value="">
+        </form>
+
+        <p><a href="" id="viewresults">See what will be submitted</a></p>
+        <pre id="scanresults"></pre>
+
+        <div>
+            <button id="newscan">New Scan</button>
+        </div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(function () {
+
+            var $step1 = $("#step1"),
+                $step2 = $("#step2"),
+                $viewresults = $("#viewresults"),
+                $scanresults = $("#scanresults"),
+                $step1status = $("#step1status");
+
+            $step2.hide();
+
+            $("#scanform").on("submit", function (event) {
+                var url = $("#url").val(),
 					user = $("#user").val(),
 					password = $("#password").val(),
 					data;
 
-				if ( url.length < 4 ) {
-					alert("Please enter a URL.");
-					return false;
-				}
-				if ( !/^http/i.test(url) ) {
-					url = "http://" + url;
-				}
+                if (url.length < 4) {
+                    alert("Please enter a URL.");
+                    return false;
+                }
 
-				if ( user && password ) {
-					data = {
-						url: url,
-						user: user,
-						password: password
-					};
-				} else {
-					data = {
-						url: url
-					};
-				}
+                if (!/^http/i.test(url)) {
+                    url = "http://" + url;
+                }
 
-				event.preventDefault();
-				$("#step1status").text("Scanning " + url + "...");
-				$.ajax({
-					method: "get",
-					url: "/",
-					data: data,
-					dataType: "text"
-				})
+                if (user && password) {
+                    data = {
+                        url: url,
+                        user: user,
+                        password: password
+                    };
+                } else {
+                    data = {
+                        url: url
+                    };
+                }
+
+                event.preventDefault();
+
+                $step1status.text("Scanning " + url + "...");
+
+                $.ajax({
+                    method: "get",
+                    url: "/",
+                    data: data,
+                    dataType: "text"
+                })
 				.done(function (results) {
-					var resobj;
-					try {
-						resobj = JSON.parse(results);
-						delete resobj.url.auth;
-						results = JSON.stringify(resobj);
-					} catch (ex) {
-					}
-					$("#step1").hide();
-					$("#step1status").text("");
-					$("#step2").show();
-					$("#json").val(results);
-					$("#scanresults").hide().text(results);
-					try {
-						$("#scanresults").text(JSON.stringify(resobj, null, "  "));
-					} catch (ex) {
-					}
+				    var resobj;
+
+				    try {
+				        resobj = JSON.parse(results);
+				        delete resobj.url.auth;
+				        results = JSON.stringify(resobj);
+				    } catch (ex) {
+				    }
+
+				    $step1.hide();
+				    $step1status.text("");
+				    $step2.show();
+				    $viewresults.show();
+				    $("#json").val(results);
+				    $scanresults.hide().text(results);
+
+				    try {
+				        $scanresults.text(JSON.stringify(resobj, null, "  "));
+				    } catch (ex) {
+				    }
 				})
 				.fail(function (xhr) {
-					alert("Failed: " + xhr.status + " " + xhr.responseText);
+				    alert("Failed: " + xhr.status + " " + xhr.responseText);
 				});
-			});
 
-			$("#newscan").on("click", function () {
-				$("#step2").hide();
-				$("#step1").show();
-			});
-			$("#viewresults").on("click", function () {
-				$("#scanresults").show();
-				$("#viewresults").hide();
-				return false;
-			});
-		});
-	</script>
-</head>
-<body>
+            });
 
-<h1>Modern.ie Local Scan</h1>
+            $("#newscan").on("click", function () {
+                $step2.hide();
+                $step1.show();
+            });
 
-<div id="step1">
-	<h2>Scan a page</h2>
+            $viewresults.on("click", function () {
+                $scanresults.show();
+                $viewresults.hide();
+                return false;
+            });
 
-	<p>Enter the URL of the page to be scanned. If the page requires authentication for access, enter the username and password; otherwise leave those fields blank. (HTTP Basic and Digest authentication methods are supported.)</p>
-
-	<form id="scanform" action="">
-		<label>
-			<span>URL to scan:</span>
-			<input type="text" name="url" id="url" size="70">
-		</label>
-		<label>
-			<span>Username:</span>
-			<input type="text" name="user" id="user" size="20">
-		<label>
-			<span>Password:</span>
-			<input type="text" name="password" id="password" size="20">
-		</label>
-		<input type="submit" name="scan" id="scan" value="Scan">
-
-		<p id="step1status"></p>
-	</form>
-</div>
-
-<div id="step2">
-	<h2>Generate report</h2>
-
-	<p>
-		The scan is complete and the report is ready to be generated.
-		Press the button below to submit the scan data to the Modern.ie site and create the report.
-	</p>
-
-	<form id="reportform" action="http://www.modern.ie/report/local" method="post">
-		<input type="submit" id="report" value="Create Report">
-		<input type="hidden" name="local_test_results" id="json" value="">
-	</form>
-
-	<p><a href="" id="viewresults">See what will be submitted</a></p>
-	<pre id="scanresults"></pre>
-
-	<div>
-		<button id="newscan">New Scan</button>
-	</div>
-</div>
+        });
+    </script>
 
 </body>
 </html>
